@@ -127,7 +127,19 @@ app.MapGet("/access", () => {
     }
     else
     {
-        return Results.BadRequest();
+        return Results.Forbid();
+    }
+});
+
+app.MapGet("/auth", () =>
+{
+    if (app.Environment.IsDevelopment())
+    {
+        return Results.Ok(Convert.ToBase64String(key.Key));
+    }
+    else
+    {
+        return Results.Forbid();
     }
 });
 
